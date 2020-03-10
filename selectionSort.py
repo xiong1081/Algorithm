@@ -1,3 +1,8 @@
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+
+# 选择排序
+
 def selectionSort(arr):
 	newArr = []
 	for i in range(len(arr)):
