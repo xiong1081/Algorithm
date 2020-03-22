@@ -28,7 +28,7 @@ n=3，m=4
 
 def largest_sum_of_path_in_rectangle(arr, n, m):
 	if len(arr) == n+1 and len(arr[0]) == m+1:
-		print("n:" + str(n) + ", m:" + str(m) + ", r:" + str(arr[n][m]))
+		print("last  n:" + str(n) + ", m:" + str(m) + ", r:" + str(arr[n][m]))
 		return arr[n][m]
 
 	right = 0
@@ -42,7 +42,7 @@ def largest_sum_of_path_in_rectangle(arr, n, m):
 		print("right n:" + str(n) + ", m:" + str(m) + ", r:" + str(right))
 		return right
 	else:
-		print("down n:" + str(n) + ", m:" + str(m) + ", r:" + str(down))
+		print("down  n:" + str(n) + ", m:" + str(m) + ", r:" + str(down))
 		return down
 
 arr = [[1,2,0,7],[1,8,2,3],[9,0,1,5]]
