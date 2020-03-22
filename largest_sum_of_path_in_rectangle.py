@@ -26,7 +26,29 @@ n=3，m=4
 21
 '''
 
-def largest_sum_of_path_in_rectangle(arr, n, m):
+import random
+
+# 贪婪算法
+def largest_sum_of_path_in_rectangle0(arr):
+	n, m = 0, 0
+	result = arr[n][m]
+	while len(arr) > n+1 or len(arr[0]) > m+1:
+		right = 0
+		if len(arr[0]) > m+1:
+			right = arr[n][m+1]
+		down = 0
+		if len(arr) > n+1:
+			down = arr[n+1][m]
+		if right > down:
+			m += 1
+			result += right
+		else:
+			n += 1
+			result += down
+	return result
+
+# 递归穷举
+def largest_sum_of_path_in_rectangle1(arr, n, m):
 	if len(arr) == n+1 and len(arr[0]) == m+1:
 		print("last  n:" + str(n) + ", m:" + str(m) + ", r:" + str(arr[n][m]))
 		return arr[n][m]
@@ -45,7 +67,15 @@ def largest_sum_of_path_in_rectangle(arr, n, m):
 		print("down  n:" + str(n) + ", m:" + str(m) + ", r:" + str(down))
 		return down
 
-arr = [[1,2,0,7],[1,8,2,3],[9,0,1,5]]
-result = largest_sum_of_path_in_rectangle(arr, 0, 0)
+arr = [[1,2,0,7], [1,8,2,3], [9,0,1,5]]
+# arr = []
+# for i in range(1, 100):
+# 	ta = []
+# 	for j in range(1, 100):
+# 		ta.append(random.randint(0, 100))
+# 	arr.append(ta)
+# print("arr:" + str(arr))
+
+result = largest_sum_of_path_in_rectangle0(arr, 0, 0)
 print("result:" + str(result))
 
