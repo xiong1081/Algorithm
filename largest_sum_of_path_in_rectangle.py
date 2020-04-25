@@ -28,8 +28,9 @@ n=3，m=4
 
 import random
 
+
 # 贪婪算法
-def largest_sum_of_path_in_rectangle0(arr):
+def largest_sum_of_path_in_rectangle0(arr, n, m):
 	n, m = 0, 0
 	result = arr[n][m]
 	while len(arr) > n+1 or len(arr[0]) > m+1:
@@ -47,7 +48,9 @@ def largest_sum_of_path_in_rectangle0(arr):
 			result += down
 	return result
 
-# 递归穷举
+
+# 递归穷举 剪枝
+dict = {}
 def largest_sum_of_path_in_rectangle1(arr, n, m):
 	if len(arr) == n+1 and len(arr[0]) == m+1:
 		print("last  n:" + str(n) + ", m:" + str(m) + ", r:" + str(arr[n][m]))
@@ -55,10 +58,17 @@ def largest_sum_of_path_in_rectangle1(arr, n, m):
 
 	right = 0
 	if len(arr[0]) > m+1:
-		right = arr[n][m] + largest_sum_of_path_in_rectangle(arr, n, m+1)
+		key = str(n) + '-' + str(m+1)
+		if key not in dict:
+			dict[key] = largest_sum_of_path_in_rectangle1(arr, n, m+1)
+		right = arr[n][m] + dict[key]
+
 	down = 0
 	if len(arr) > n+1:
-		down = arr[n][m] + largest_sum_of_path_in_rectangle(arr, n+1, m)
+		key = str(n+1) + '-' + str(m)
+		if key not in dict:
+			dict[key] = largest_sum_of_path_in_rectangle1(arr, n+1, m)
+		down = arr[n][m] + dict[key]
 	
 	if right > down:
 		print("right n:" + str(n) + ", m:" + str(m) + ", r:" + str(right))
@@ -67,15 +77,15 @@ def largest_sum_of_path_in_rectangle1(arr, n, m):
 		print("down  n:" + str(n) + ", m:" + str(m) + ", r:" + str(down))
 		return down
 
-arr = [[1,2,0,7], [1,8,2,3], [9,0,1,5]]
-# arr = []
-# for i in range(1, 100):
-# 	ta = []
-# 	for j in range(1, 100):
-# 		ta.append(random.randint(0, 100))
-# 	arr.append(ta)
-# print("arr:" + str(arr))
+# arr = [[1,2,0,7], [1,8,2,3], [9,0,1,5]]
+arr = []
+for i in range(1, 100):
+	ta = []
+	for j in range(1, 100):
+		ta.append(random.randint(0, 100))
+	arr.append(ta)
+print("arr:" + str(arr))
 
-result = largest_sum_of_path_in_rectangle0(arr, 0, 0)
+result = largest_sum_of_path_in_rectangle1(arr, 0, 0)
 print("result:" + str(result))
 
